@@ -27,12 +27,14 @@ class Assets extends Component {
     let updatedStateValue = this.state.assests.cashAndInvestments;
     updatedStateValue[key] = event.target.value;
     this.setState({ updatedStateValue });
-    //console.log(this.state.assests.cashAndInvestments);
+    console.log(this.state.assests.cashAndInvestments);
+    event.preventDefault();
   }
 
   render() {
     return (
       <React.Fragment>
+        {console.log(this.state.assests.cashAndInvestments)}
         <table>
           <thead>
             <tr>
