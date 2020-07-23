@@ -1,14 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import Assets from "./components/assets";
-import Liability from "./components/liability";
+import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Assets />
-    <Liability />
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );
