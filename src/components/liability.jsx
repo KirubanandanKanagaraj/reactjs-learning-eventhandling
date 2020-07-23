@@ -18,7 +18,7 @@ class Liability extends Component {
     let updatedStateValue = this.state.liability.shortTerm;
     updatedStateValue[key] = event.target.value;
     this.setState({ updatedStateValue });
-    //console.log(this.state.liability.shortTerm);
+    this.props.getLiability(this.state.liability.shortTerm);
   }
 
   render() {
