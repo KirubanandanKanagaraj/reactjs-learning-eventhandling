@@ -31,6 +31,16 @@ class Assets extends Component {
     this.props.getAsset(this.state.assests.cashAndInvestments);
   }
 
+  addNewRow() {
+    console.log("event clicked");
+  }
+
+  deleteRow(event, key) {
+    delete this.state.assests.cashAndInvestments[key[0]];
+    let updatedCashAndInvestmentObject = this.state.assests.cashAndInvestments;
+    this.setState({ updatedCashAndInvestmentObject });
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -44,7 +54,11 @@ class Assets extends Component {
             <tr>
               <td colSpan="2">Cash and Investments</td>
             </tr>
-
+            <tr>
+              <td colSpan="2">
+                <button onClick={(e) => this.addNewRow()}>Add New Row</button>
+              </td>
+            </tr>
             {Object.entries(this.state.assests.cashAndInvestments).map(
               (key, value) => (
                 <tr key={value}>
@@ -56,6 +70,11 @@ class Assets extends Component {
                       defaultValue={key[1]}
                       onBlur={(e) => this.handleChange(e, key[0])}
                     ></input>
+                  </td>
+                  <td>
+                    <button onClick={(e) => this.deleteRow(e, key)}>
+                      Delete
+                    </button>
                   </td>
                 </tr>
               )
