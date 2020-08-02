@@ -18,7 +18,6 @@ class Liability extends Component {
     updatedStateValue[key] = event.target.value;
     this.setState({ updatedStateValue });
     this.props.getLiability(updatedStateValue);
-    event.preventDefault();
   }
 
   addNewRow(e, close) {
