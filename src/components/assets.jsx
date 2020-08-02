@@ -28,7 +28,6 @@ class Assets extends Component {
     updatedStateValue[key] = event.target.value;
     this.setState({ updatedStateValue });
     this.props.getAsset(updatedStateValue);
-    event.preventDefault();
   }
 
   addNewRow(e, close) {
