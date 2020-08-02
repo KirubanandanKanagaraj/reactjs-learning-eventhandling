@@ -46,7 +46,7 @@ class Assets extends Component {
   }
 
   deleteRow(event, key) {
-    delete this.state.assests.cashAndInvestments[key[0]];
+    delete this.state.assests[key[0]];
     let updatedCashAndInvestmentObject = this.state.assests.cashAndInvestments;
     this.setState({ updatedCashAndInvestmentObject });
   }
