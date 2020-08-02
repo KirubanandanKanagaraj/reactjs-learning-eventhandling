@@ -1,38 +1,48 @@
 import React, { Component } from "react";
+import Popup from "reactjs-popup";
 
 class Assets extends Component {
   constructor(props) {
     super(props);
     this.state = {
       assests: {
-        cashAndInvestments: {
-          chequing: "400",
-          savingsForTaxes: "200",
-          rainyDayFund: "500",
-          savingsForFun: "1200",
-          savingsForTravel: "4000",
-          savingsForPersonalDevelopment: "600",
-          investment1: "6000",
-          investment2: "5000",
-          investment3: "2000",
-          investment4: "1000",
-          investment5: "10000",
-        },
+        chequing: "",
+        savingsForTaxes: "",
+        rainyDayFund: "",
+        savingsForFun: "",
+        savingsForTravel: "",
+        savingsForPersonalDevelopment: "",
+        investment1: "",
+        investment2: "",
+        investment3: "",
+        investment4: "",
+        investment5: "",
       },
     };
+
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event, key) {
-    event.preventDefault();
-    let updatedStateValue = this.state.assests.cashAndInvestments;
+    let updatedStateValue = this.state.assests;
     updatedStateValue[key] = event.target.value;
     this.setState({ updatedStateValue });
-    this.props.getAsset(this.state.assests.cashAndInvestments);
+    this.props.getAsset(updatedStateValue);
+    event.preventDefault();
   }
 
-  addNewRow() {
-    console.log("event clicked");
+  addNewRow(e, close) {
+    let newField = document.getElementById("newAssetFieldName").value;
+    let updatedStateValue = this.state.assests;
+    updatedStateValue[newField] = "";
+    this.setState({ updatedStateValue });
+    close();
+  }
+
+  deleteRow(event, key) {
+    delete this.state.assests[key[0]];
+    let AssetObject = this.state.assests;
+    this.setState({ AssetObject });
   }
 
   deleteRow(event, key) {
@@ -47,38 +57,65 @@ class Assets extends Component {
         <table>
           <thead>
             <tr>
-              <th colSpan="2">Assets</th>
+              <th colSpan="2">ASSETS</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td colSpan="2">Cash and Investments</td>
-            </tr>
-            <tr>
               <td colSpan="2">
-                <button onClick={(e) => this.addNewRow()}>Add New Row</button>
+                <Popup modal trigger={<button>Add New Row</button>}>
+                  {(close) => (
+                    <table id="inputPopup">
+                      <thead>
+                        <tr>
+                          <td>Add Asset</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <label>Asset name</label>
+                          </td>
+                          <td>
+                            <input
+                              name="newAssetFieldName"
+                              id="newAssetFieldName"
+                              type="text"
+                            ></input>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <button onClick={(e) => this.addNewRow(e, close)}>
+                              Add Asset
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  )}
+                </Popup>
               </td>
             </tr>
-            {Object.entries(this.state.assests.cashAndInvestments).map(
-              (key, value) => (
-                <tr key={value}>
-                  <td>{key[0]}</td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      defaultValue={key[1]}
-                      onBlur={(e) => this.handleChange(e, key[0])}
-                    ></input>
-                  </td>
-                  <td>
-                    <button onClick={(e) => this.deleteRow(e, key)}>
-                      Delete
-                    </button>
-                  </td>
-                </tr>
-              )
-            )}
+
+            {Object.entries(this.state.assests).map((key, value) => (
+              <tr key={value}>
+                <td>{key[0]}</td>
+                <td>
+                  <input
+                    type="number"
+                    min="0"
+                    defaultValue={key[1]}
+                    onBlur={(e) => this.handleChange(e, key[0])}
+                  ></input>
+                </td>
+                <td>
+                  <button onClick={(e) => this.deleteRow(e, key)}>
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </React.Fragment>
